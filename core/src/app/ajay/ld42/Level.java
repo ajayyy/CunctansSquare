@@ -7,6 +7,8 @@ public class Level {
 	
 	ArrayList<Block> blocks = new ArrayList<Block>();
 	
+	Player player;
+	
 	int blockSize;
 	
 	LevelConfiguration levelConfig;
@@ -28,16 +30,24 @@ public class Level {
 				}
 			}
 		}
+		
+		player = new Player(levelConfig.playerX, levelConfig.playerY);
 	}
 	
 	public void update() {
+		for (Block block : blocks) {
+			block.update();
+		}
 		
+		player.update();
 	}
 	
 	public void render() {
 		for (Block block : blocks) {
 			block.render(this, main);
 		}
+		
+		player.render(this, main);
 	}
 	
 	public static Block createBlock(int type, int x, int y) {
@@ -45,8 +55,6 @@ public class Level {
 			case 0:
 				return new OpenBlock(x, y);
 			case 1:
-				return new PlayerBlock(x, y);
-			case 2:
 				return new EnemyBlock(x, y);
 		}
 		

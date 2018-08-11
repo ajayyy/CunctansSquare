@@ -1,5 +1,7 @@
 package app.ajay.ld42;
 
+import javax.activation.UnsupportedDataTypeException;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -25,7 +27,14 @@ public class Main extends ApplicationAdapter {
 		LevelConfiguration levelConfig = new LevelConfiguration();
 		
 		levelConfig.blocks = new int[5][5];
+		levelConfig.blocks[4] = new int[] {0, -1, 0, 0, -1};
+		levelConfig.blocks[3] = new int[] {0, 0, 0, 0, -1};
+		levelConfig.blocks[2] = new int[] {-1, 0, 0, 0, 0};
+		levelConfig.blocks[1] = new int[] {-1, 0, 0, 0, -1};
 		levelConfig.blocks[0] = new int[] {-1, -1, 0, 0, -1};
+		
+		levelConfig.playerX = 0;
+		levelConfig.playerY = 4;
 
 		level = new Level(this, levelConfig);
 		
@@ -45,6 +54,8 @@ public class Main extends ApplicationAdapter {
 
 	@Override
 	public void render() {
+		update();
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -53,6 +64,10 @@ public class Main extends ApplicationAdapter {
 		shapeRenderer.setProjectionMatrix(cam.combined);
 		
 		level.render();
+	}
+	
+	public void update() {
+		level.update();
 	}
 	
 	@Override

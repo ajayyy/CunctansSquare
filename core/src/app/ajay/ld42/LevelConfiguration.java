@@ -11,4 +11,7 @@ public class LevelConfiguration {
 	
 	//contains a list of the rows of blocks. -1: no block.
 	int[][] blocks;
+	
+	int playerX;
+	int playerY;
 }
