@@ -32,9 +32,12 @@ public class Player extends Block{
 		
 		Block currentBlock = level.getBlock(x, y);
 		
-		if (currentBlock == null || currentBlock.type != 0) {
+		if (currentBlock == null || !currentBlock.open) {
 			x = oldX;
 			y = oldY;
+		} else if(oldX != x || oldY != y) {
+			//a turn has been played
+			level.playTurn();
 		}
 	}
 

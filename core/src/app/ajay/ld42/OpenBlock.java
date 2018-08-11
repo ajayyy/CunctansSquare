@@ -11,6 +11,8 @@ public class OpenBlock extends Block {
 		color = color.WHITE;
 		
 		type = 0;
+		
+		open = true;
 	}
 
 }

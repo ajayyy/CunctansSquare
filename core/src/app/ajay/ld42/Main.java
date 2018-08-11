@@ -31,7 +31,7 @@ public class Main extends ApplicationAdapter {
 		levelConfig.blocks[3] = new int[] {0, 0, 0, 0, -1};
 		levelConfig.blocks[2] = new int[] {-1, 0, 0, 0, 0};
 		levelConfig.blocks[1] = new int[] {-1, 0, 0, 0, -1};
-		levelConfig.blocks[0] = new int[] {-1, -1, 0, 0, -1};
+		levelConfig.blocks[0] = new int[] {-1, -1, 0, 0, 1};
 		
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 4;

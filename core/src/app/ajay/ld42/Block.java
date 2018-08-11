@@ -12,6 +12,8 @@ public class Block {
 	
 	Color color;
 	
+	boolean open = false;
+	
 	public Block(int x, int y) {
 		this.x = x;
 		this.y = y;

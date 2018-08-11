@@ -1,6 +1,8 @@
 package app.ajay.ld42;
 
 import java.util.ArrayList;
+import java.util.Random;
+
 
 public class Level {
 	Main main;
@@ -12,6 +14,8 @@ public class Level {
 	int blockSize;
 	
 	LevelConfiguration levelConfig;
+	
+	Random rand;
 	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
@@ -32,6 +36,8 @@ public class Level {
 		}
 		
 		player = new Player(levelConfig.playerX, levelConfig.playerY);
+		
+		rand = new Random();
 	}
 	
 	public void update() {
@@ -50,6 +56,11 @@ public class Level {
 		player.render(this, main);
 	}
 	
+	//called by the player when a turn has started, the non player events are triggered from here
+	public void playTurn() {
+		blocks.remove(rand.nextInt(blocks.size()));
+	}
+	
 	public Block getBlock(int x, int y) {
 		for (int i = 0; i < blocks.size(); i++) {
 			if (blocks.get(i).x == x && blocks.get(i).y == y) {
@@ -57,7 +68,6 @@ public class Level {
 			}
 		}
 		
-		System.err.println("Block at x: " + x + " y: " + y + " does not exist");
 		return null;
 	}
 	
@@ -66,7 +76,7 @@ public class Level {
 			case 0:
 				return new OpenBlock(x, y);
 			case 1:
-				return new EnemyBlock(x, y);
+				return new FinishBlock(x, y);
 		}
 		
 		System.err.println("Invalid block type: " + type);

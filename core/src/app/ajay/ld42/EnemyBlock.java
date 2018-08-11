@@ -4,7 +4,5 @@ public class EnemyBlock extends Block{
 
 	public EnemyBlock(int x, int y) {
 		super(x, y);
-		
-		type = 1;
 	}
 }
