@@ -19,6 +19,8 @@ public class Level {
 	
 	Random rand;
 	
+	int turnNumber = 0;
+	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
 		
@@ -58,55 +60,63 @@ public class Level {
 	
 	//called by the player when a turn has started, the non player events are triggered from here
 	public void playTurn() {
+		
 		//remove random block
-		ArrayList<Block> edgeBlocks = findEdgeBlocks();
-		
-		ArrayList<Vector2> path = findPath(player.x, player.y, levelConfig.endX, levelConfig.endY);
-		
-		if (path != null) {
-			ArrayList<Block> usableBlocks = new ArrayList<Block>();
-			for(Block block : edgeBlocks) {
-				if(!vectorListContains(path, new Vector2(block.x, block.y))) {
-					usableBlocks.add(block);
-				}
-			}
+		if(turnNumber % levelConfig.destroyInterval == 0) {
+			ArrayList<Vector2> path = findPath(player.x, player.y, levelConfig.endX, levelConfig.endY);
 			
-			if (usableBlocks.size() > 0) {
-				int randomBlockIndex = rand.nextInt(usableBlocks.size());
+			if (path != null) {
+				ArrayList<Block> nonPathBlocks = new ArrayList<Block>();
+				for(Block block : blocks) {
+					if(!vectorListContains(path, new Vector2(block.x, block.y))) {
+						nonPathBlocks.add(block);
+					}
+				}
 				
-				blocks.remove(usableBlocks.get(randomBlockIndex));
-			} else {
-				for (Vector2 block : path) {
-					System.out.println(block.x + " " + block.y);
+				ArrayList<Block> usableBlocks = findEdgeBlocks(nonPathBlocks);
+				
+				if (usableBlocks.size() > 0) {
+					int randomBlockIndex = rand.nextInt(usableBlocks.size());
+					
+					blocks.remove(usableBlocks.get(randomBlockIndex));
 				}
 			}
 		}
+		
+		turnNumber++;
 	}
 	
-	public ArrayList<Block> findEdgeBlocks(){
+	public ArrayList<Block> findEdgeBlocks(ArrayList<Block> blocks){
 		ArrayList<Block> edgeBlocks = new ArrayList<Block>();
 		
-		for(Block block : blocks) {
-			
+		for(Block block : new ArrayList<Block>(blocks)) {
 			ArrayList<Block> surroundingBlocks = new ArrayList<Block>();
 			
-			for (int x = -1; x <= 1; x++) {
-				for (int y = -1; y <= 1; y++) {
-					surroundingBlocks.add(getBlock(block.x + x, block.y + y));
-				}
-			}
+			surroundingBlocks.add(getBlock(block.x + 1, block.y));
+			surroundingBlocks.add(getBlock(block.x - 1, block.y));
+			surroundingBlocks.add(getBlock(block.x, block.y + 1));
+			surroundingBlocks.add(getBlock(block.x, block.y - 1));
 			
-			int amountOfDestroyedSpaces = 0;
+			boolean edgeBlock = true;
 			
+			this.blocks.remove(block);
 			for (Block surroundingBlock : surroundingBlocks) {
-				if (surroundingBlock == null) {
-					amountOfDestroyedSpaces++;
+				if (surroundingBlock != null) {
+					ArrayList<Vector2> path = findPath(surroundingBlock.x, surroundingBlock.y, levelConfig.endX, levelConfig.endY);
+					
+					if(path == null) {
+						edgeBlock = false;
+						break;
+					}
+					
 				}
 			}
+			this.blocks.add(block);
 			
-			if (amountOfDestroyedSpaces >= 3) {
+			if(edgeBlock) {
 				edgeBlocks.add(block);
 			}
+			
 		}
 		
 		return edgeBlocks;
@@ -152,7 +162,7 @@ public class Level {
 			Block currentBlock = getBlock(newPosition.x, newPosition.y);
 
 			if (currentBlock == null || !currentBlock.open || vectorListContains(path, newPosition)) {
-				System.out.println("removed");
+//				System.out.println("removed");
 				removeTriesLeft--;
 			} else {
 				path.add(newPosition);
@@ -169,7 +179,7 @@ public class Level {
 			}
 			
 			if (clearingTriesLeft < 0) {
-				System.out.println("cap hit");
+//				System.out.println("cap hit");
 				return null;
 			}
 			
