@@ -9,11 +9,14 @@ public class Level {
 	
 	int blockSize;
 	
+	LevelConfiguration levelConfig;
+	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
 		
 		blockSize = levelConfig.blockSize;
 		
+		this.levelConfig = levelConfig;
 		
 		//create block list out of block plan in the level config
 		for (int y = 0; y < levelConfig.blocks.length; y++) {
