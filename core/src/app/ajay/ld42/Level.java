@@ -2,9 +2,6 @@ package app.ajay.ld42;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-
 public class Level {
 	Main main;
 	
@@ -21,7 +18,11 @@ public class Level {
 		//create block list out of block plan in the level config
 		for (int y = 0; y < levelConfig.blocks.length; y++) {
 			for (int x = 0; x < levelConfig.blocks[y].length; x++) {
-				blocks.add(createBlock(levelConfig.blocks[x][y], x, y));
+				int blockType = levelConfig.blocks[y][x];
+				
+				if(blockType != -1) {
+					blocks.add(createBlock(blockType, x, y));
+				}
 			}
 		}
 	}
@@ -31,19 +32,18 @@ public class Level {
 	}
 	
 	public void render() {
-		main.shapeRenderer.begin(ShapeType.Filled);
-		
-		main.shapeRenderer.setColor(Color.BLUE);
-		main.shapeRenderer.box(0, 0, 0, blockSize, blockSize, 0);
-		
-		main.shapeRenderer.end();
+		for (Block block : blocks) {
+			block.render(this, main);
+		}
 	}
 	
 	public static Block createBlock(int type, int x, int y) {
 		switch(type) {
 			case 0:
-				return new PlayerBlock(x, y);
+				return new OpenBlock(x, y);
 			case 1:
+				return new PlayerBlock(x, y);
+			case 2:
 				return new EnemyBlock(x, y);
 		}
 		

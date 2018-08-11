@@ -22,7 +22,8 @@ public class Main extends ApplicationAdapter {
 		LevelConfiguration levelConfig = new LevelConfiguration();
 		
 		levelConfig.blocks = new int[5][5];
-		
+		levelConfig.blocks[0] = new int[] {-1, -1, 0, 0, -1};
+
 		level = new Level(this, levelConfig);
 	}
 
