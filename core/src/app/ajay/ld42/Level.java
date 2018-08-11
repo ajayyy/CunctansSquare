@@ -15,16 +15,12 @@ public class Level {
 	
 	Player player;
 	
-	int blockSize;
-	
 	LevelConfiguration levelConfig;
 	
 	Random rand;
 	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
-		
-		blockSize = levelConfig.blockSize;
 		
 		this.levelConfig = levelConfig;
 		
@@ -91,12 +87,24 @@ public class Level {
 		ArrayList<Block> edgeBlocks = new ArrayList<Block>();
 		
 		for(Block block : blocks) {
-			Block right = getBlock(block.x + 1, block.y);
-			Block left = getBlock(block.x - 1, block.y);
-			Block up = getBlock(block.x, block.y + 1);
-			Block down = getBlock(block.x, block.y - 1);
 			
-			if (right == null || left == null || up == null || down == null) {
+			ArrayList<Block> surroundingBlocks = new ArrayList<Block>();
+			
+			for (int x = -1; x <= 1; x++) {
+				for (int y = -1; y <= 1; y++) {
+					surroundingBlocks.add(getBlock(block.x + x, block.y + y));
+				}
+			}
+			
+			int amountOfDestroyedSpaces = 0;
+			
+			for (Block surroundingBlock : surroundingBlocks) {
+				if (surroundingBlock == null) {
+					amountOfDestroyedSpaces++;
+				}
+			}
+			
+			if (amountOfDestroyedSpaces >= 3) {
 				edgeBlocks.add(block);
 			}
 		}

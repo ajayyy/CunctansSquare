@@ -28,10 +28,10 @@ public class Block {
 		
 		main.shapeRenderer.setColor(color);
 		
-		float centerAmountX = Gdx.graphics.getWidth() / 2 - (level.levelConfig.blocks[0].length * level.blockSize) / 2;
-		float centerAmountY = Gdx.graphics.getHeight() / 2 - (level.levelConfig.blocks.length * level.blockSize) / 2;
+		float centerAmountX = Gdx.graphics.getWidth() / 2 - (level.levelConfig.blocks[0].length * level.levelConfig.blockSize) / 2;
+		float centerAmountY = Gdx.graphics.getHeight() / 2 - (level.levelConfig.blocks.length * level.levelConfig.blockSize) / 2;
 		
-		main.shapeRenderer.box(x * level.blockSize + centerAmountX, y * level.blockSize + centerAmountY, 0, level.blockSize, level.blockSize, 0);
+		main.shapeRenderer.box(x * level.levelConfig.blockSize + centerAmountX, y * level.levelConfig.blockSize + centerAmountY, 0, level.levelConfig.blockSize, level.levelConfig.blockSize, 0);
 		
 		main.shapeRenderer.end();
 	}
