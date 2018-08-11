@@ -2,7 +2,9 @@ package app.ajay.ld42;
 
 public class EnemyBlock extends Block{
 
-	public EnemyBlock(float x, float y) {
+	public EnemyBlock(int x, int y) {
 		super(x, y);
+		
+		type = 1;
 	}
 }

@@ -36,10 +36,10 @@ public class Level {
 	
 	public void update() {
 		for (Block block : blocks) {
-			block.update();
+			block.update(this, main);
 		}
 		
-		player.update();
+		player.update(this, main);
 	}
 	
 	public void render() {
@@ -48,6 +48,17 @@ public class Level {
 		}
 		
 		player.render(this, main);
+	}
+	
+	public Block getBlock(int x, int y) {
+		for (int i = 0; i < blocks.size(); i++) {
+			if (blocks.get(i).x == x && blocks.get(i).y == y) {
+				return blocks.get(i);
+			}
+		}
+		
+		System.err.println("Block at x: " + x + " y: " + y + " does not exist");
+		return null;
 	}
 	
 	public static Block createBlock(int type, int x, int y) {

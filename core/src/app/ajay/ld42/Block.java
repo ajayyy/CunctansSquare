@@ -6,16 +6,18 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Block {
 	
-	public float x, y;
+	int type = -1;
+	
+	public int x, y;
 	
 	Color color;
 	
-	public Block(float x, float y) {
+	public Block(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
 	
-	public void update() {
+	public void update(Level level, Main main) {
 		
 	}
 	

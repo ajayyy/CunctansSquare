@@ -5,10 +5,12 @@ package app.ajay.ld42;
  */
 public class OpenBlock extends Block {
 
-	public OpenBlock(float x, float y) {
+	public OpenBlock(int x, int y) {
 		super(x, y);
 		
 		color = color.WHITE;
+		
+		type = 0;
 	}
 
 }
