@@ -50,7 +50,7 @@ public class Level {
 	}
 	
 	public void update() {
-		for (Block block : blocks) {
+		for (Block block : new ArrayList<Block>(blocks)) {
 			block.update(this, main);
 		}
 		
@@ -128,8 +128,8 @@ public class Level {
 			
 			boolean edgeBlock = true;
 			
-			ArrayList<Block> otherBlocks = new ArrayList<Block>(blocks);
-			blocks.remove(block);
+			ArrayList<Block> otherBlocks = new ArrayList<Block>(this.blocks);
+			otherBlocks.remove(block);
 			
 			for (Block surroundingBlock : surroundingBlocks) {
 				if (surroundingBlock != null) {
@@ -154,13 +154,13 @@ public class Level {
 	
 	public ArrayList<Vector2> findPath(int startX, int startY, int endX, int endY, ArrayList<Block> blocks) {
 		//maximum amount of blocks before giving up and trying another path entirely
-		int maximumPathLength = 15;
+		int maximumPathLength = 50;
 		
 		//tries left when removing the block for not being an open block
-		int removeTriesLeft = 10;
+		int removeTriesLeft = 250;
 		
 		//tries left when clearing the whole path
-		int clearingTriesLeft = 5000;
+		int clearingTriesLeft = 100;
 		
 		ArrayList<Vector2> path = new ArrayList<Vector2>();
 		path.add(new Vector2(startX, startY));
@@ -189,27 +189,25 @@ public class Level {
 			}
 			
 			
-			Block currentBlock = getBlock(newPosition.x, newPosition.y);
+			Block currentBlock = getBlock(newPosition.x, newPosition.y, blocks);
 
 			if (currentBlock == null || !currentBlock.open || vectorListContains(path, newPosition)) {
-//				System.out.println("removed");
 				removeTriesLeft--;
 			} else {
 				path.add(newPosition);
-				removeTriesLeft = 10;
+				removeTriesLeft = 250;
 			}
 			
 			if (path.size() > maximumPathLength || removeTriesLeft < 0) {
 				path.clear();
 				path.add(new Vector2(startX, startY));
 				
-				removeTriesLeft = 10;
+				removeTriesLeft = 250;
 
 				clearingTriesLeft--;
 			}
 			
 			if (clearingTriesLeft < 0) {
-//				System.out.println("cap hit");
 				return null;
 			}
 			
@@ -221,6 +219,10 @@ public class Level {
 	}
 	
 	public Block getBlock(float x, float y) {
+		return getBlock(x, y, blocks);
+	}
+	
+	public Block getBlock(float x, float y, ArrayList<Block> blocks) {
 		for (int i = 0; i < blocks.size(); i++) {
 			if (blocks.get(i).x == x && blocks.get(i).y == y) {
 				return blocks.get(i);
