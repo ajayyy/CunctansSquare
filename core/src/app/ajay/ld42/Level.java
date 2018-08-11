@@ -67,8 +67,7 @@ public class Level {
 		
 		ArrayList<Vector2> path = findPath(player.x, player.y, levelConfig.endX, levelConfig.endY);
 		
-		if(path != null) {
-			
+		if (path != null) {
 			ArrayList<Block> usableBlocks = new ArrayList<Block>();
 			for(Block block : edgeBlocks) {
 				if(!vectorListContains(path, new Vector2(block.x, block.y))) {
@@ -76,9 +75,15 @@ public class Level {
 				}
 			}
 			
-			int randomBlockIndex = rand.nextInt(usableBlocks.size());
-			
-			blocks.remove(usableBlocks.get(randomBlockIndex));
+			if (usableBlocks.size() > 0) {
+				int randomBlockIndex = rand.nextInt(usableBlocks.size());
+				
+				blocks.remove(usableBlocks.get(randomBlockIndex));
+			} else {
+				for (Vector2 block : path) {
+					System.out.println(block.x + " " + block.y);
+				}
+			}
 		}
 	}
 	
@@ -107,7 +112,7 @@ public class Level {
 		int removeTriesLeft = 10;
 		
 		//tries left when clearing the whole path
-		int clearingTriesLeft = 10;
+		int clearingTriesLeft = 5000;
 		
 		ArrayList<Vector2> path = new ArrayList<Vector2>();
 		path.add(new Vector2(startX, startY));
@@ -123,25 +128,26 @@ public class Level {
 				direction = rand.nextInt(4);
 			}
 			
+			Vector2 newPosition = new Vector2();
+			
 			if(direction == 0) {
-				path.add(new Vector2(0, 1).add(currentPosition));
+				newPosition = new Vector2(0, 1).add(currentPosition);
 			} else if (direction == 1) {
-				path.add(new Vector2(0, -1).add(currentPosition));
+				newPosition = new Vector2(0, -1).add(currentPosition);
 			} else if (direction == 2) {
-				path.add(new Vector2(1, 0).add(currentPosition));
+				newPosition = new Vector2(1, 0).add(currentPosition);
 			} else if (direction == 3) {
-				path.add(new Vector2(-1, 0).add(currentPosition));
+				newPosition = new Vector2(-1, 0).add(currentPosition);
 			}
 			
-			Vector2 newPosition = path.get(path.size() - 1);
 			
 			Block currentBlock = getBlock(newPosition.x, newPosition.y);
-			
-			if (currentBlock == null || !currentBlock.open) {
-				path.remove(path.size() - 1);
+
+			if (currentBlock == null || !currentBlock.open || vectorListContains(path, newPosition)) {
 				System.out.println("removed");
 				removeTriesLeft--;
 			} else {
+				path.add(newPosition);
 				removeTriesLeft = 10;
 			}
 			
