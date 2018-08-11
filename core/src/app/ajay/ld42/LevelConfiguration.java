@@ -14,4 +14,7 @@ public class LevelConfiguration {
 	
 	int playerX;
 	int playerY;
+	
+	int endX;
+	int endY;
 }

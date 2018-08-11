@@ -35,6 +35,8 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 4;
+		levelConfig.endX = 4;
+		levelConfig.endY = 0;
 
 		level = new Level(this, levelConfig);
 		
