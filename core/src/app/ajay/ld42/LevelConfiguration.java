@@ -19,5 +19,5 @@ public class LevelConfiguration {
 	int endY;
 	
 	//amount of turns until another tile is destroyed
-	int destroyInterval = 3;
+	int destroyInterval = 1;
 }

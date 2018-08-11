@@ -39,7 +39,7 @@ public class Main extends ApplicationAdapter {
 		levelConfig.blocks[0] = new int[] {-1, -1, 0, 0, 1, 0, 0, 0, -1, -1};
 		
 		levelConfig.playerX = 0;
-		levelConfig.playerY = 4;
+		levelConfig.playerY = 9;
 		levelConfig.endX = 4;
 		levelConfig.endY = 0;
 

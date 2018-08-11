@@ -6,6 +6,7 @@ import java.util.Random;
 
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 
 public class Level {
@@ -20,6 +21,10 @@ public class Level {
 	Random rand;
 	
 	int turnNumber = 0;
+	
+	ArrayList<Block> usableBlocks = new ArrayList<Block>();
+	Thread usableBlocksThread = null;
+	boolean turnQueued = false;
 	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
@@ -40,6 +45,8 @@ public class Level {
 		player = new Player(levelConfig.playerX, levelConfig.playerY);
 		
 		rand = new Random();
+		
+		loadTurn();
 	}
 	
 	public void update() {
@@ -51,7 +58,7 @@ public class Level {
 	}
 	
 	public void render() {
-		for (Block block : blocks) {
+		for (Block block : new ArrayList<Block>(blocks)) {
 			block.render(this, main);
 		}
 		
@@ -63,18 +70,7 @@ public class Level {
 		
 		//remove random block
 		if(turnNumber % levelConfig.destroyInterval == 0) {
-			ArrayList<Vector2> path = findPath(player.x, player.y, levelConfig.endX, levelConfig.endY);
-			
-			if (path != null) {
-				ArrayList<Block> nonPathBlocks = new ArrayList<Block>();
-				for(Block block : blocks) {
-					if(!vectorListContains(path, new Vector2(block.x, block.y))) {
-						nonPathBlocks.add(block);
-					}
-				}
-				
-				ArrayList<Block> usableBlocks = findEdgeBlocks(nonPathBlocks);
-				
+			if (usableBlocks != null) {
 				if (usableBlocks.size() > 0) {
 					int randomBlockIndex = rand.nextInt(usableBlocks.size());
 					
@@ -83,7 +79,40 @@ public class Level {
 			}
 		}
 		
+		loadTurn();
+		
 		turnNumber++;
+	}
+	
+	//loads data for the next turn in another thread
+	public void loadTurn() {
+		usableBlocksThread = new Thread() {
+			public void run() {
+				ArrayList<Vector2> path = findPath(player.x, player.y, levelConfig.endX, levelConfig.endY, blocks);
+				
+				if (path != null) {
+					ArrayList<Block> nonPathBlocks = new ArrayList<Block>();
+					for(Block block : blocks) {
+						if(!vectorListContains(path, new Vector2(block.x, block.y))) {
+							nonPathBlocks.add(block);
+						}
+					}
+					
+					usableBlocks = findEdgeBlocks(nonPathBlocks);
+					System.out.println("generated");
+				} else {
+					usableBlocks = null;
+				}
+				
+				usableBlocksThread = null;
+			}
+		};
+		
+		usableBlocksThread.start();
+	}
+	
+	public boolean readyForTurn() {
+		return usableBlocksThread == null;
 	}
 	
 	public ArrayList<Block> findEdgeBlocks(ArrayList<Block> blocks){
@@ -99,10 +128,12 @@ public class Level {
 			
 			boolean edgeBlock = true;
 			
-			this.blocks.remove(block);
+			ArrayList<Block> otherBlocks = new ArrayList<Block>(blocks);
+			blocks.remove(block);
+			
 			for (Block surroundingBlock : surroundingBlocks) {
 				if (surroundingBlock != null) {
-					ArrayList<Vector2> path = findPath(surroundingBlock.x, surroundingBlock.y, levelConfig.endX, levelConfig.endY);
+					ArrayList<Vector2> path = findPath(surroundingBlock.x, surroundingBlock.y, levelConfig.endX, levelConfig.endY, otherBlocks);
 					
 					if(path == null) {
 						edgeBlock = false;
@@ -111,7 +142,6 @@ public class Level {
 					
 				}
 			}
-			this.blocks.add(block);
 			
 			if(edgeBlock) {
 				edgeBlocks.add(block);
@@ -122,7 +152,7 @@ public class Level {
 		return edgeBlocks;
 	}
 	
-	public ArrayList<Vector2> findPath(int startX, int startY, int endX, int endY) {
+	public ArrayList<Vector2> findPath(int startX, int startY, int endX, int endY, ArrayList<Block> blocks) {
 		//maximum amount of blocks before giving up and trying another path entirely
 		int maximumPathLength = 15;
 		
