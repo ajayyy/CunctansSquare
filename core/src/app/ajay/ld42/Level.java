@@ -37,9 +37,10 @@ public class Level {
 	
 	ArrayList<Vector2> lastDestroyedBlocks = new ArrayList<Vector2>();
 	
-	boolean retryAnimation = false;
-	int retryAnimationFrames = 0;
-	int retryAnimationLength = 15;
+	boolean endAnimation = false;
+	int endAnimationFrames = 0;
+	int endAnimationLength = 15;
+	boolean nextLevel = false;
 	
 	boolean startAnimation = false;
 	int startAnimationFrames = 0;
@@ -83,17 +84,23 @@ public class Level {
 		
 		player.update(this, main);
 		
-		if(retryAnimation) {
-//			main.postProcessor.addEffect(main.bloom);
-			
+		if(endAnimation) {
 			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() + 1);
 			main.bloom.setBlurPasses(main.bloom.getBlurPasses() + 10);
-			retryAnimationFrames++;
+			endAnimationFrames++;
 			
-			if(retryAnimationFrames > retryAnimationLength) {
-				retryAnimation = false;
-				main.level = new Level(main, levelConfig);
-				main.level.startAnimation = true;
+			if(endAnimationFrames > endAnimationLength) {
+				endAnimation = false;
+				
+				if (nextLevel) {
+					int currentLevelIndex = main.levels.indexOf(main.level.levelConfig);
+					
+					main.level = new Level(main, main.levels.get(currentLevelIndex + 1));
+					main.level.startAnimation = true;
+				} else {
+					main.level = new Level(main, levelConfig);
+					main.level.startAnimation = true;
+				}
 			}
 		}
 		
@@ -122,9 +129,9 @@ public class Level {
 	}
 	
 	public void restart() {
-		if(!retryAnimation) {
-			retryAnimation = true;
-			retryAnimationFrames = 0;
+		if(!endAnimation) {
+			endAnimation = true;
+			endAnimationFrames = 0;
 		}
 	}
 	

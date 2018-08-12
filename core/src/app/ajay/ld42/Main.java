@@ -88,9 +88,10 @@ public class Main extends ApplicationAdapter {
     }
 	 
 	public void nextLevel() {
-		int currentLevelIndex = levels.indexOf(level.levelConfig);
-		
-		level = new Level(this, levels.get(currentLevelIndex + 1));
+		if(!level.endAnimation) {
+			level.nextLevel = true;
+			level.endAnimation = true;
+		}
 	}
 	 
 	public void loadLevels() {
