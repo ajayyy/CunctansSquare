@@ -92,6 +92,12 @@ public class Level {
 	//called by the player when a turn has started, the non player events are triggered from here
 	public void playTurn() {
 		
+		//check if the level has been beaten
+		if (getBlock(player.x, player.y).type == 1) {
+			main.nextLevel();
+			return;
+		}
+		
 		//call all next turn methods
 		for (Block block : new ArrayList<Block>(blocks)) {
 			block.playTurn(this, main);

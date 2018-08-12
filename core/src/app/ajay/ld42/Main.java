@@ -26,13 +26,15 @@ public class Main extends ApplicationAdapter {
 	
 	PostProcessor postProcessor;
 	
+	Bloom bloom;
+	
 	@Override
 	public void create() {
 		
 		//Add bloom effect
 		ShaderLoader.BasePath = "data/shaders/";
         postProcessor = new PostProcessor(false, false, Gdx.app.getType() == ApplicationType.Desktop);
-        Bloom bloom = new Bloom((int) (Gdx.graphics.getWidth() * 0.25f), (int) (Gdx.graphics.getHeight() * 0.25f));
+        bloom = new Bloom((int) (Gdx.graphics.getWidth() * 0.25f), (int) (Gdx.graphics.getHeight() * 0.25f));
         postProcessor.addEffect( bloom );
 		
 		batch = new SpriteBatch();
@@ -50,6 +52,10 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void resize(int width, int height) {
 		cam.setToOrtho(false, width, height);
+		
+		postProcessor.removeEffect(bloom);
+		bloom = new Bloom((int) (width * 0.25f), (int) (height * 0.25f));
+		postProcessor.addEffect(bloom);
 		
 		batch.setProjectionMatrix(cam.combined);
 		shapeRenderer.setProjectionMatrix(cam.combined);
@@ -121,7 +127,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 2
 		levelConfig = new LevelConfiguration();
