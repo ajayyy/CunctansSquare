@@ -1,7 +1,5 @@
 package app.ajay.ld42;
 
-import java.util.MissingFormatArgumentException;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;

@@ -96,6 +96,12 @@ public class Level {
 		//remove random block
 		if(turnNumber % levelConfig.destroyInterval == 0) {
 			if (usableBlocks != null) {
+				
+				//remove current postition from usable blocks
+				if (usableBlocks.contains(getBlock(player.x, player.y))) {
+					usableBlocks.remove(getBlock(player.x, player.y));
+				}
+				
 				if (usableBlocks.size() > 0) {
 					int randomBlockIndex = rand.nextInt(usableBlocks.size());
 					

@@ -39,8 +39,17 @@ public class Main extends ApplicationAdapter {
 		levelConfig.blocks[1] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		levelConfig.blocks[0] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
 		
-		levelConfig.enemies = new Vector2[1];
+		levelConfig.enemies = new Vector2[10];
 		levelConfig.enemies[0] = new Vector2(4, 3);
+		levelConfig.enemies[1] = new Vector2(7, 4);
+		levelConfig.enemies[2] = new Vector2(1, 6);
+		levelConfig.enemies[3] = new Vector2(5, 0);
+		levelConfig.enemies[4] = new Vector2(16, 3);
+		levelConfig.enemies[5] = new Vector2(13, 1);
+		levelConfig.enemies[6] = new Vector2(19, 8);
+		levelConfig.enemies[7] = new Vector2(12, 5);
+		levelConfig.enemies[8] = new Vector2(11, 6);
+		levelConfig.enemies[9] = new Vector2(15, 8);
 		
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 9;
