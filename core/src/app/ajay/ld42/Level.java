@@ -113,30 +113,34 @@ public class Level {
 					}
 				}
 				
-				if (usableBlocks.size() > 0) {
-					int randomBlockIndex = rand.nextInt(usableBlocks.size());
-					
-					//the direction the removing animation will go in
-					int direction = -1;
-					
-					Block removedBlock = usableBlocks.get(randomBlockIndex);
-					
-					Block right = getBlock(removedBlock.x + 1, removedBlock.y);
-					Block left = getBlock(removedBlock.x - 1, removedBlock.y);
-					Block up = getBlock(removedBlock.x, removedBlock.y + 1);
-					Block down = getBlock(removedBlock.x, removedBlock.y - 1);
-					
-					if (right != null && left == null) {
-						direction = 2;
-					} else if (left != null && right == null) {
-						direction = 3;
-					} else if (up != null && down == null) {
-						direction = 0;
-					} else if (down != null && up == null) {
-						direction = 1;
+				if (usableBlocks.size() >= levelConfig.destroyAmount) {
+					for(int i = 0; i < levelConfig.destroyAmount; i++) {
+						int randomBlockIndex = rand.nextInt(usableBlocks.size());
+						
+						//the direction the removing animation will go in
+						int direction = -1;
+						
+						Block removedBlock = usableBlocks.get(randomBlockIndex);
+						
+						Block right = getBlock(removedBlock.x + 1, removedBlock.y);
+						Block left = getBlock(removedBlock.x - 1, removedBlock.y);
+						Block up = getBlock(removedBlock.x, removedBlock.y + 1);
+						Block down = getBlock(removedBlock.x, removedBlock.y - 1);
+						
+						if (right != null && left == null) {
+							direction = 2;
+						} else if (left != null && right == null) {
+							direction = 3;
+						} else if (up != null && down == null) {
+							direction = 0;
+						} else if (down != null && up == null) {
+							direction = 1;
+						}
+						
+						removedBlock.destroy(this, main, direction);
+						
+						usableBlocks.remove(removedBlock);
 					}
-					
-					removedBlock.destroy(this, main, direction);
 				}
 			}
 		}

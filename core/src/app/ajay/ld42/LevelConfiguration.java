@@ -26,4 +26,6 @@ public class LevelConfiguration {
 	
 	//amount of turns until another tile is destroyed
 	int destroyInterval = 1;
+	//amount of blocks to destroy each time
+	int destroyAmount = 5;
 }
