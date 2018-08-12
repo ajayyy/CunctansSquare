@@ -2,15 +2,17 @@ package app.ajay.ld42;
 
 import java.util.ArrayList;
 
-import javax.activation.UnsupportedDataTypeException;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.bitfire.postprocessing.PostProcessor;
+import com.bitfire.postprocessing.effects.Bloom;
+import com.bitfire.utils.ShaderLoader;
 
 public class Main extends ApplicationAdapter {
 	public SpriteBatch batch;
@@ -22,12 +24,64 @@ public class Main extends ApplicationAdapter {
 	
 	ArrayList<LevelConfiguration> levels = new ArrayList<LevelConfiguration>();
 	
+	PostProcessor postProcessor;
+	
 	@Override
 	public void create() {
+		
+		//Add bloom effect
+		ShaderLoader.BasePath = "data/shaders/";
+        postProcessor = new PostProcessor(false, false, Gdx.app.getType() == ApplicationType.Desktop);
+        Bloom bloom = new Bloom( (int)(Gdx.graphics.getWidth() * 0.25f), (int)(Gdx.graphics.getHeight() * 0.25f) );
+        postProcessor.addEffect( bloom );
+		
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		
-		//contains all data for the level being created
+		loadLevels();
+		
+		level = new Level(this, levels.get(0));
+		
+		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
+		
+	}
+	
+	@Override
+	public void resize(int width, int height) {
+		cam.setToOrtho(false, width, height);
+		
+		batch.setProjectionMatrix(cam.combined);
+		shapeRenderer.setProjectionMatrix(cam.combined);
+		cam.update();
+	}
+
+	@Override
+	public void render() {
+		update();
+		
+		//setup post processing
+		postProcessor.capture();
+		
+		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
+		cam.update();
+		batch.setProjectionMatrix(cam.combined);
+		shapeRenderer.setProjectionMatrix(cam.combined);
+		
+		level.render();
+		
+		//render the result
+        postProcessor.render();
+	}
+	
+	 @Override
+    public void resume() {
+        postProcessor.rebind();
+    }
+	
+	public void loadLevels() {
 		LevelConfiguration levelConfig = new LevelConfiguration();
 		
 		levelConfig.blocks = new int[10][20];
@@ -60,35 +114,8 @@ public class Main extends ApplicationAdapter {
 		levelConfig.endY = 0;
 		
 		levelConfig.blockSize = 32;
-
-		level = new Level(this, levelConfig);
 		
-		cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
-		
-	}
-	
-	@Override
-	public void resize(int width, int height) {
-		cam.setToOrtho(false, width, height);
-		
-		batch.setProjectionMatrix(cam.combined);
-		shapeRenderer.setProjectionMatrix(cam.combined);
-		cam.update();
-	}
-
-	@Override
-	public void render() {
-		update();
-		
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		cam.update();
-		batch.setProjectionMatrix(cam.combined);
-		shapeRenderer.setProjectionMatrix(cam.combined);
-		
-		level.render();
+		levels.add(levelConfig);
 	}
 	
 	public void update() {
@@ -99,5 +126,6 @@ public class Main extends ApplicationAdapter {
 	public void dispose() {
 		batch.dispose();
 		shapeRenderer.dispose();
+        postProcessor.dispose();
 	}
 }
