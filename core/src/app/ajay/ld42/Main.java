@@ -256,6 +256,78 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
+//		levels.add(levelConfig);
+		
+		//level 5
+		levelConfig = new LevelConfiguration();
+		
+		levelConfig.blocks = new int[20][20];                                                                               
+		levelConfig.blocks[19] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  3,  0,  0,  0,  0,  0, -1,  0};
+		levelConfig.blocks[18] = new int[] { 0,  0,  3,  0,  0,  0,  0,  0,  3,  0,  0, -1, -1,  0,  0,  3, -1,  0, -1,  0};
+		levelConfig.blocks[17] = new int[] { 0,  0,  3,  0,  0,  0,  0,  0,  3,  0,  0, -1, -1, -1, -1, -1,  0,  0, -1,  0};
+		levelConfig.blocks[16] = new int[] { 0,  0,  3,  0,  0,  0,  0,  0,  3,  0,  0, -1, -1,  0,  0,  0,  0,  0, -1,  0};
+		levelConfig.blocks[15] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0, -1,  0};
+		levelConfig.blocks[14] = new int[] { 0,  0,  0,  0,  0, -1, -1, -1, -1,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[13] = new int[] { 0,  0,  0,  0,  0, -1, -1, -1, -1,  0,  0, -1, -1,  3,  0,  3,  0,  0,  0,  0};
+		levelConfig.blocks[12] = new int[] { 0,  0,  0,  0,  0, -1,  0,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[11] = new int[] { 0,  3,  0,  3,  0, -1,  0,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[10] = new int[] { 0,  0,  0,  0,  0, -1,  0,  0,  0,  0,  0, -1, -1,  0,  0, -1, -1, -1, -1, -1};
+		levelConfig.blocks[9] = new int[]  { 0,  0,  0,  0,  0, -1, -1, -1, -1,  0,  0, -1, -1,  0,  0, -1, -1, -1, -1, -1};
+		levelConfig.blocks[8] = new int[]  {-1, -1,  0,  0,  0, -1, -1, -1, -1,  0,  0, -1,  0,  0,  0, -1, -1, -1, -1, -1};
+		levelConfig.blocks[7] = new int[]  {-1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1,  0,  0,  0, -1, -1, -1, -1, -1};
+		levelConfig.blocks[6] = new int[]  {-1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[5] = new int[]  {-1,  0,  0, -1,  0,  0,  0,  0,  0,  0,  3, -1, -1,  0,  0,  0,  0,  3,  0,  0};
+		levelConfig.blocks[4] = new int[]  {-1,  0,  0, -1,  0,  0,  0,  3,  0,  0,  3, -1, -1,  0,  0,  0,  0,  3,  0,  0};
+		levelConfig.blocks[3] = new int[]  {-1,  0,  0, -1,  0,  0,  0,  3,  0,  0,  0, -1, -1,  0,  0,  0,  0,  3,  0,  0};
+		levelConfig.blocks[2] = new int[]  {-1,  0,  0, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[1] = new int[]  {-1,  0,  0, -1,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[0] = new int[]  { 1,  0,  0, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		
+		levelConfig.createEnemies();
+		                                                                                                             
+		levelConfig.playerX = 19;
+		levelConfig.playerY = 19;
+		levelConfig.endX = 0;
+		levelConfig.endY = 0;
+		
+		levelConfig.blockSize = 32;
+		
+//		levels.add(levelConfig);
+		
+		//level 6
+		levelConfig = new LevelConfiguration();
+		
+		levelConfig.blocks = new int[20][20];                                                                               
+		levelConfig.blocks[19] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[18] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[17] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[16] = new int[] { 0,  0,  0,  0,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[15] = new int[] { 0,  0,  0,  0,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[14] = new int[] { 0,  0,  0,  0,  0,  0, -1, -1, -1,  3, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[13] = new int[] {-1, -1, -1,  3,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  3,  0,  0,  0,  0,  0};
+		levelConfig.blocks[12] = new int[] {-1, -1, -1,  3,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  3,  0,  0,  0,  0,  0};
+		levelConfig.blocks[11] = new int[] {-1, -1, -1,  3,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  3,  0,  0,  0,  0,  0};
+		levelConfig.blocks[10] = new int[] {-1, -1, -1,  3,  0,  0, -1, -1, -1,  1, -1, -1, -1,  0,  3,  0,  0,  0,  0,  0};
+		levelConfig.blocks[9] = new int[]  {-1, -1, -1,  3,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  3,  0,  0,  0,  0,  0};
+		levelConfig.blocks[8] = new int[]  {-1, -1, -1,  3,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  3,  0,  0,  0,  0,  0};
+		levelConfig.blocks[7] = new int[]  {-1, -1, -1,  3,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  3,  0,  0,  0,  0,  0};
+		levelConfig.blocks[6] = new int[]  {-1, -1, -1,  3,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  3,  0,  0,  0,  0,  0};
+		levelConfig.blocks[5] = new int[]  {-1, -1, -1,  0,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[4] = new int[]  {-1, -1, -1,  0,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[3] = new int[]  {-1, -1, -1,  0,  0,  0, -1, -1, -1,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[2] = new int[]  {-1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[1] = new int[]  {-1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[0] = new int[]  {-1, -1, -1,  0,  0,  0,  3,  0,  0,  0,  0,  0,  3,  0,  0,  0,  0,  0,  0,  0};
+		
+		levelConfig.createEnemies();
+		                                                                                                             
+		levelConfig.playerX = 0;
+		levelConfig.playerY = 19;
+		levelConfig.endX = 0;
+		levelConfig.endY = 0;
+		
+		levelConfig.blockSize = 32;
+		
 		levels.add(levelConfig);
 	}
 	
