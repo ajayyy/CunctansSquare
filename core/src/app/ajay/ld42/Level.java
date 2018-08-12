@@ -226,11 +226,11 @@ public class Level {
 					
 					usableBlocks = findEdgeBlocks(nonPathBlocks);
 					System.out.println(usableBlocks.size());
-					System.out.println("generated");
 					
 					System.out.println(allPaths.size());
 				} else {
 					usableBlocks = null;
+					System.out.println("no usable blocks");
 				}
 				
 				usableBlocksThread = null;

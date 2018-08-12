@@ -323,8 +323,8 @@ public class Main extends ApplicationAdapter {
 		                                                                                                             
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 19;
-		levelConfig.endX = 0;
-		levelConfig.endY = 0;
+		levelConfig.endX = 9;
+		levelConfig.endY = 10;
 		
 		levelConfig.blockSize = 32;
 		
