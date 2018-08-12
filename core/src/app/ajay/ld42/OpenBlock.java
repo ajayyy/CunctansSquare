@@ -14,5 +14,8 @@ public class OpenBlock extends Block {
 		
 		open = true;
 	}
-
+	
+	public void update(Level level, Main main) {
+		super.update(level, main);
+	}
 }

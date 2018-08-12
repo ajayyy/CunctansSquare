@@ -1,5 +1,7 @@
 package app.ajay.ld42;
 
+import java.util.MissingFormatArgumentException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
@@ -21,6 +23,10 @@ public class Block {
 	float percentageToTarget;
 	float percentageIncrement = 0.1f;
 	
+	//shrink animation
+	boolean shrinkAnimating;
+	int shrinkDirection;
+	
 	public Block(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -33,6 +39,17 @@ public class Block {
 			if(percentageToTarget > 1) {
 				animating = false;
 				percentageToTarget = 0;
+			}
+		}
+		
+		if (shrinkAnimating) {
+			percentageToTarget += percentageIncrement;
+			
+			if(percentageToTarget > 1) {
+				shrinkAnimating = false;
+				percentageToTarget = 0;
+				
+				level.blocks.remove(this);
 			}
 		}
 	}
@@ -52,13 +69,40 @@ public class Block {
 		float renderX = x;
 		float renderY = y;
 		
+		float width = level.levelConfig.blockSize;
+		float height = level.levelConfig.blockSize;
+		
 		if (animating) {
 			renderX = startX + (targetX - startX) * percentageToTarget;
 			renderY = startY + (targetY - startY) * percentageToTarget;
 		}
 		
-		main.shapeRenderer.box(renderX * level.levelConfig.blockSize + centerAmountX, renderY * level.levelConfig.blockSize + centerAmountY, 0, level.levelConfig.blockSize, level.levelConfig.blockSize, 0);
+		if (shrinkAnimating) {
+			switch (shrinkDirection) {
+				case 0:
+					height = height * (1 - percentageToTarget);
+					renderY += percentageToTarget;
+					break;
+				case 1:
+					height = height * (1 - percentageToTarget);
+					break;
+				case 2:
+					width = width * (1 - percentageToTarget);
+					renderX += percentageToTarget;
+					break;
+				case 3:
+					width = width * (1 - percentageToTarget);
+					break;
+			}
+		}
+		
+		main.shapeRenderer.box(renderX * level.levelConfig.blockSize + centerAmountX, renderY * level.levelConfig.blockSize + centerAmountY, 0, width, height, 0);
 		
 		main.shapeRenderer.end();
+	}
+	
+	public void destroy (Level level, Main main, int direction) {
+		shrinkAnimating = true;
+		shrinkDirection = direction;
 	}
 }
