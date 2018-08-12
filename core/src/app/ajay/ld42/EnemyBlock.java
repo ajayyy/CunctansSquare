@@ -19,6 +19,9 @@ public class EnemyBlock extends Block{
 		
 		int direction = level.rand.nextInt(4);
 		
+		int oldX = x;
+		int oldY = y;
+		
 		switch (direction) {
 			case 0:
 				y++;
@@ -52,6 +55,14 @@ public class EnemyBlock extends Block{
 					x--;
 					break;
 			}
+		} else {
+			//setup animation
+			animating = true;
+			startX = oldX;
+			startY = oldY;
+			targetX = x;
+			targetY = y;
+			percentageToTarget = 0;
 		}
 	}
 }

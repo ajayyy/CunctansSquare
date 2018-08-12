@@ -15,7 +15,11 @@ public class Player extends Block{
 	}
 	
 	public void update(Level level, Main main) {
-		checkForMovement(level, main);
+		super.update(level, main);
+		
+		if (!animating) {
+			checkForMovement(level, main);
+		}
 		
 		if(level.turnQueued && level.readyForTurn()) {
 			level.turnQueued = false;
@@ -81,6 +85,35 @@ public class Player extends Block{
 		} else if(direction != -1) {
 			//a turn has been played
 			if(level.readyForTurn()) {
+				
+				//find old positions
+				int oldX = x;
+				int oldY = y;
+				
+				//undo movement
+				switch (direction) {
+					case 0:
+						oldY--;
+						break;
+					case 1:
+						oldY++;
+						break;
+					case 2:
+						oldX++;
+						break;
+					case 3:
+						oldX--;
+						break;
+				}
+				
+				//setup animation
+				animating = true;
+				startX = oldX;
+				startY = oldY;
+				targetX = x;
+				targetY = y;
+				percentageToTarget = 0;
+				
 				level.playTurn();
 			} else {
 				level.turnQueued = true;
