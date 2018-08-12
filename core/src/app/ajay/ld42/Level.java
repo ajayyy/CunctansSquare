@@ -283,6 +283,30 @@ public class Level {
 		return getBlock(x, y, blocks);
 	}
 	
+	public Block getEnemy(float x, float y) {
+		for (int i = 0; i < enemies.size(); i++) {
+			if (enemies.get(i).x == x && enemies.get(i).y == y) {
+				return enemies.get(i);
+			}
+		}
+		
+		return null;
+	}
+	
+	public Block getEnemy(float x, float y, Block excludedEnemy) {
+		for (int i = 0; i < enemies.size(); i++) {
+			if (enemies.get(i) == excludedEnemy) {
+				continue;
+			}
+			
+			if (enemies.get(i).x == x && enemies.get(i).y == y) {
+				return enemies.get(i);
+			}
+		}
+		
+		return null;
+	}
+	
 	public Block getBlock(float x, float y, ArrayList<Block> blocks) {
 		for (int i = 0; i < blocks.size(); i++) {
 			if (blocks.get(i).x == x && blocks.get(i).y == y) {
