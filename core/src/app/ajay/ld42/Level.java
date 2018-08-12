@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
@@ -85,12 +86,12 @@ public class Level {
 		
 		player.update(this, main);
 		
-		if(endAnimation) {
+		if (endAnimation) {
 			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() + 2);
 			main.bloom.setBlurPasses(main.bloom.getBlurPasses() + 20);
 			endAnimationFrames++;
 			
-			if(endAnimationFrames > endAnimationLength) {
+			if (endAnimationFrames > endAnimationLength) {
 				endAnimation = false;
 				
 				if (nextLevel) {
@@ -105,15 +106,19 @@ public class Level {
 			}
 		}
 		
-		if(startAnimation) {
+		if (startAnimation) {
 			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() - 2);
 			main.bloom.setBlurPasses(main.bloom.getBlurPasses() - 20);
 			
 			startAnimationFrames++;
 			
-			if(startAnimationFrames > startAnimationLength) {
+			if (startAnimationFrames > startAnimationLength) {
 				startAnimation = false;
 			}
+		}
+		
+		if (Gdx.input.isKeyJustPressed(Keys.R) && !endAnimation) {
+			restart();
 		}
 	}
 	

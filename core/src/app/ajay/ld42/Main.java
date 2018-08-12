@@ -70,6 +70,9 @@ public class Main extends ApplicationAdapter {
 		postProcessor.capture();
 		
 		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 1);
+		if (level.blocks.size() <= 0) {
+			Gdx.gl.glClearColor(0f, 0f, 0f, 1);
+		}
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		cam.update();
@@ -121,6 +124,8 @@ public class Main extends ApplicationAdapter {
 		levelConfig.enemies[8] = new Vector2(11, 6);
 		levelConfig.enemies[9] = new Vector2(15, 8);
 		
+		levelConfig.hint = "Move with WASD. Reach the green.";
+		
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 9;
 		levelConfig.endX = 19;
@@ -166,6 +171,8 @@ public class Main extends ApplicationAdapter {
 		levelConfig.enemies[7] = new Vector2(12, 5);
 		levelConfig.enemies[8] = new Vector2(11, 6);
 		levelConfig.enemies[9] = new Vector2(15, 8);
+		
+		levelConfig.hint = "Avoid the red players";
 		
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 9;
@@ -213,6 +220,8 @@ public class Main extends ApplicationAdapter {
 		levelConfig.enemies[8] = new Vector2(11, 6);
 		levelConfig.enemies[9] = new Vector2(14, 18);
 		
+		levelConfig.hint = "If it gets tough, hit R";
+		
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 9;
 		levelConfig.endX = 18;
@@ -248,6 +257,8 @@ public class Main extends ApplicationAdapter {
 		levelConfig.blocks[0] = new int[]  { 0,  0,  0, -1, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1};
 		
 		levelConfig.createEnemies();
+		
+		levelConfig.hint = "You might have to move in circles to let them pass";
 		                                                                                                             
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 9;
@@ -330,7 +341,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-		levels.add(levelConfig);
+//		levels.add(levelConfig);
 		
 		//level 7
 		levelConfig = new LevelConfiguration();
@@ -362,6 +373,82 @@ public class Main extends ApplicationAdapter {
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 19;
 		levelConfig.endX = 19;
+		levelConfig.endY = 0;
+		
+		levelConfig.blockSize = 32;
+		
+//		levels.add(levelConfig);
+		
+		//level 8
+		levelConfig = new LevelConfiguration();
+		
+		levelConfig.blocks = new int[20][20];                                                                               
+		levelConfig.blocks[19] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4,  0,  0};
+		levelConfig.blocks[18] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4,  0,  0};
+		levelConfig.blocks[17] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[16] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  3};
+		levelConfig.blocks[15] = new int[] { 0,  0,  0,  0,  0,  0,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[14] = new int[] { 0,  0,  0,  0,  0,  0,  0, -1, -1,  3, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[13] = new int[] { 0,  0,  0,  0,  0,  0,  0, -1, -1,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[12] = new int[] { 0,  0,  0,  0,  0,  0,  0, -1, -1,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[11] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0,  0,  2, -1, -1,  0,  0,  0,  0, -1, -1,  0,  1};
+		levelConfig.blocks[10] = new int[] { 0,  0,  0,  0,  0,  0,  0, -1, -1,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[9] = new int[]  { 0,  0,  0,  0,  0,  0,  3, -1, -1,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[8] = new int[]  { 0,  0,  0,  0,  0,  0,  0, -1, -1,  0, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[7] = new int[]  { 0,  0,  0,  0,  0,  0,  0, -1, -1,  3, -1, -1,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[6] = new int[]  { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  3,  0};
+		levelConfig.blocks[5] = new int[]  { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[4] = new int[]  { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[3] = new int[]  { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[2] = new int[]  { 0,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1,  0,  0};
+		levelConfig.blocks[1] = new int[]  { 0,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4,  0,  3};
+		levelConfig.blocks[0] = new int[]  { 0,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  4,  4,  0,  0};
+		
+		levelConfig.createEnemies();
+		
+		levelConfig.hint = "FINAL LEVEL!";
+		                                                                                                             
+		levelConfig.playerX = 0;
+		levelConfig.playerY = 19;
+		levelConfig.endX = 11;
+		levelConfig.endY = 19;
+		
+		levelConfig.blockSize = 32;
+		
+//		levels.add(levelConfig);
+		
+		//level 8
+		levelConfig = new LevelConfiguration();
+		
+		levelConfig.blocks = new int[20][20];                                                                               
+		levelConfig.blocks[19] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[18] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[17] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[16] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[15] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[14] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[13] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[12] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[11] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[10] = new int[] {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[9] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[8] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[7] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[6] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[5] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[4] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[3] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[2] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[1] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		levelConfig.blocks[0] = new int[]  {-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
+		
+		levelConfig.createEnemies();
+		
+		levelConfig.hint = "Thanks for playing :D     You win!!    \n\nCreated By Ajay Ramachandran\n\nhttps://ajay.app\ndev@ajay.app\n\nLudum Dare: https://ldjam.com/users/ajayajayaj/\n\nGitHub: https://github.com/ajayyy\n\nItch.io: https://theajayyy.itch.io\n\nMade for Ludum Dare 42 in 48 hours    #LDJAM";
+		                                                                                                             
+		levelConfig.playerX = -100;
+		levelConfig.playerY = 0;
+		levelConfig.endX = 0;
 		levelConfig.endY = 0;
 		
 		levelConfig.blockSize = 32;
