@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.bitfire.postprocessing.PostProcessor;
 
 
 public class Level {
@@ -33,6 +36,14 @@ public class Level {
 	HashMap<Block, ArrayList<Vector2>> allPaths = new HashMap<Block, ArrayList<Vector2>>();
 	
 	ArrayList<Vector2> lastDestroyedBlocks = new ArrayList<Vector2>();
+	
+	boolean retryAnimation = false;
+	int retryAnimationFrames = 0;
+	int retryAnimationLength = 15;
+	
+	boolean startAnimation = false;
+	int startAnimationFrames = 0;
+	int startAnimationLength = 15;
 	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
@@ -71,6 +82,31 @@ public class Level {
 		}
 		
 		player.update(this, main);
+		
+		if(retryAnimation) {
+//			main.postProcessor.addEffect(main.bloom);
+			
+			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() + 1);
+			main.bloom.setBlurPasses(main.bloom.getBlurPasses() + 10);
+			retryAnimationFrames++;
+			
+			if(retryAnimationFrames > retryAnimationLength) {
+				retryAnimation = false;
+				main.level = new Level(main, levelConfig);
+				main.level.startAnimation = true;
+			}
+		}
+		
+		if(startAnimation) {
+			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() - 1);
+			main.bloom.setBlurPasses(main.bloom.getBlurPasses() - 10);
+			
+			startAnimationFrames++;
+			
+			if(startAnimationFrames > startAnimationLength) {
+				startAnimation = false;
+			}
+		}
 	}
 	
 	public void render() {
@@ -86,7 +122,10 @@ public class Level {
 	}
 	
 	public void restart() {
-		main.level = new Level(main, levelConfig);
+		if(!retryAnimation) {
+			retryAnimation = true;
+			retryAnimationFrames = 0;
+		}
 	}
 	
 	//called by the player when a turn has started, the non player events are triggered from here
