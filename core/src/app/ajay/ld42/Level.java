@@ -128,25 +128,35 @@ public class Level {
 			
 			boolean edgeBlock = true;
 			
-			ArrayList<Block> otherBlocks = new ArrayList<Block>(this.blocks);
-			otherBlocks.remove(block);
+			//if true, this cannot be an edge piece
+			boolean noNull = true;
 			
 			for (Block surroundingBlock : surroundingBlocks) {
-				if (surroundingBlock != null) {
-					ArrayList<Vector2> path = findPath(surroundingBlock.x, surroundingBlock.y, levelConfig.endX, levelConfig.endY, otherBlocks);
-					
-					if(path == null) {
-						edgeBlock = false;
-						break;
-					}
-					
+				if(surroundingBlock == null) {
+					noNull = false;
 				}
 			}
 			
-			if(edgeBlock) {
-				edgeBlocks.add(block);
+			if (!noNull) {
+				ArrayList<Block> otherBlocks = new ArrayList<Block>(this.blocks);
+				otherBlocks.remove(block);
+				
+				for (Block surroundingBlock : surroundingBlocks) {
+					if (surroundingBlock != null) {
+						ArrayList<Vector2> path = findPath(surroundingBlock.x, surroundingBlock.y, levelConfig.endX, levelConfig.endY, otherBlocks);
+						
+						if(path == null) {
+							edgeBlock = false;
+							break;
+						}
+						
+					}
+				}
+				
+				if(edgeBlock) {
+					edgeBlocks.add(block);
+				}
 			}
-			
 		}
 		
 		return edgeBlocks;
@@ -154,7 +164,7 @@ public class Level {
 	
 	public ArrayList<Vector2> findPath(int startX, int startY, int endX, int endY, ArrayList<Block> blocks) {
 		//maximum amount of blocks before giving up and trying another path entirely
-		int maximumPathLength = 50;
+		int maximumPathLength = 100;
 		
 		//tries left when removing the block for not being an open block
 		int removeTriesLeft = 250;

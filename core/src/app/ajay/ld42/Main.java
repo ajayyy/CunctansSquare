@@ -26,22 +26,24 @@ public class Main extends ApplicationAdapter {
 		//TODO: make a list of these and keep loading them as new levels need to be loaded
 		LevelConfiguration levelConfig = new LevelConfiguration();
 		
-		levelConfig.blocks = new int[10][10];
-		levelConfig.blocks[9] = new int[] {0, -1, 0, 0, -1, 0, 0, 0, 0, -1};
-		levelConfig.blocks[8] = new int[] {0, -1, 0, 0, -1, 0, 0, 0, 0, -1};
-		levelConfig.blocks[7] = new int[] {0, -1, 0, 0, -1, 0, 0, 0, 0, -1};
-		levelConfig.blocks[6] = new int[] {0, -1, 0, 0, -1, 0, 0, 0, 0, -1};
-		levelConfig.blocks[5] = new int[] {0, -1, 0, 0, -1, 0, 0, -1, 0, -1};
-		levelConfig.blocks[4] = new int[] {0, -1, 0, 0, -1, 0, 0, -1, 0, -1};
-		levelConfig.blocks[3] = new int[] {0, 0, 0, 0, -1, 0, 0, -1, 0, -1};
-		levelConfig.blocks[2] = new int[] {-1, 0, 0, 0, 0, 0, 0, 0, 0, -1};
-		levelConfig.blocks[1] = new int[] {-1, 0, 0, 0, -1, 0, 0, -1, 0, -1};
-		levelConfig.blocks[0] = new int[] {-1, -1, 0, 0, 1, 0, 0, 0, -1, -1};
+		levelConfig.blocks = new int[10][20];
+		levelConfig.blocks[9] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[8] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[7] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[6] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[5] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[4] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[3] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[2] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[1] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		levelConfig.blocks[0] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
 		
 		levelConfig.playerX = 0;
 		levelConfig.playerY = 9;
-		levelConfig.endX = 4;
+		levelConfig.endX = 19;
 		levelConfig.endY = 0;
+		
+		levelConfig.blockSize = 32;
 
 		level = new Level(this, levelConfig);
 		
