@@ -133,7 +133,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 2
 		levelConfig = new LevelConfiguration();
@@ -181,7 +181,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 3
 		levelConfig = new LevelConfiguration();
@@ -229,7 +229,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 4
 		levelConfig = new LevelConfiguration();
@@ -267,7 +267,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 5
 		levelConfig = new LevelConfiguration();
@@ -303,7 +303,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 6
 		levelConfig = new LevelConfiguration();
@@ -341,7 +341,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 7
 		levelConfig = new LevelConfiguration();
@@ -377,7 +377,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 8
 		levelConfig = new LevelConfiguration();
@@ -415,7 +415,7 @@ public class Main extends ApplicationAdapter {
 		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 8
 		levelConfig = new LevelConfiguration();

@@ -4,7 +4,14 @@
 	<inherits name='com.badlogic.gdx.backends.gdx_backends_gwt' />
 	<inherits name='com.badlogic.gdx.physics.box2d.box2d-gwt' />
 
+	<source path="com/bitfire/utils" />
+	<source path="com/bitfire/postprocessing" />
+	<source path="com/bitfire/postprocessing/effects" />
+	<source path="com/bitfire/postprocessing/filters" />
+	<source path="com/bitfire/postprocessing/utils" />
+
 	<inherits name='Main' />
+	
 	<entry-point class='app.ajay.ld42.client.HtmlLauncher' />
 	<set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
 	<set-configuration-property name="gdx.assetpath" value="../android/assets" />

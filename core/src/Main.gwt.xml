@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit trunk//EN" "http://google-web-toolkit.googlecode.com/svn/trunk/distro-source/core/src/gwt-module.dtd">
 <module>
+	<source path="com/bitfire/utils" />
+	<source path="com/bitfire/postprocessing" />
+	<source path="com/bitfire/postprocessing/effects" />
+	<source path="com/bitfire/postprocessing/filters" />
+	<source path="com/bitfire/postprocessing/utils" />
 	<source path="app/ajay/ld42" />
 </module>
