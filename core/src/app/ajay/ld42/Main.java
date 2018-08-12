@@ -32,7 +32,7 @@ public class Main extends ApplicationAdapter {
 		//Add bloom effect
 		ShaderLoader.BasePath = "data/shaders/";
         postProcessor = new PostProcessor(false, false, Gdx.app.getType() == ApplicationType.Desktop);
-        Bloom bloom = new Bloom( (int)(Gdx.graphics.getWidth() * 0.25f), (int)(Gdx.graphics.getHeight() * 0.25f) );
+        Bloom bloom = new Bloom((int) (Gdx.graphics.getWidth() * 0.25f), (int) (Gdx.graphics.getHeight() * 0.25f));
         postProcessor.addEffect( bloom );
 		
 		batch = new SpriteBatch();
@@ -63,7 +63,7 @@ public class Main extends ApplicationAdapter {
 		//setup post processing
 		postProcessor.capture();
 		
-		Gdx.gl.glClearColor(0, 0, 0, 1);
+		Gdx.gl.glClearColor(0.7f, 0.7f, 0.7f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		cam.update();
