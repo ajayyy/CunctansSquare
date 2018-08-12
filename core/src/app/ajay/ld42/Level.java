@@ -85,8 +85,8 @@ public class Level {
 		player.update(this, main);
 		
 		if(endAnimation) {
-			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() + 1);
-			main.bloom.setBlurPasses(main.bloom.getBlurPasses() + 10);
+			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() + 2);
+			main.bloom.setBlurPasses(main.bloom.getBlurPasses() + 20);
 			endAnimationFrames++;
 			
 			if(endAnimationFrames > endAnimationLength) {
@@ -105,8 +105,8 @@ public class Level {
 		}
 		
 		if(startAnimation) {
-			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() - 1);
-			main.bloom.setBlurPasses(main.bloom.getBlurPasses() - 10);
+			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() - 2);
+			main.bloom.setBlurPasses(main.bloom.getBlurPasses() - 20);
 			
 			startAnimationFrames++;
 			
@@ -405,6 +405,8 @@ public class Level {
 				return new OpenBlock(x, y);
 			case 1:
 				return new FinishBlock(x, y);
+			case 3:
+				return new OpenBlock(x, y);
 		}
 		
 		System.err.println("Invalid block type: " + type);
