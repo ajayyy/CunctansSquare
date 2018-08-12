@@ -68,9 +68,8 @@ public class Player extends Block{
 		}
 		
 		Block currentBlock = level.getBlock(x, y);
-		Block currentEnemy = level.getEnemy(x, y);
 		
-		if (currentBlock == null || !currentBlock.open || currentEnemy != null) {
+		if (currentBlock == null || !currentBlock.open) {
 			//undo movement
 			switch (direction) {
 				case 0:

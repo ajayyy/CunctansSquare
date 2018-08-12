@@ -30,7 +30,7 @@ public class Level {
 	boolean turnQueued = false;
 	
 	//the block that was last destroyed, used to know if a calculation needs to be redone
-	HashMap<Block[], ArrayList<Vector2>> allPaths = new HashMap<Block[], ArrayList<Vector2>>();
+	HashMap<Block, ArrayList<Vector2>> allPaths = new HashMap<Block, ArrayList<Vector2>>();
 	
 	ArrayList<Vector2> lastDestroyedBlocks = new ArrayList<Vector2>();
 	
@@ -173,7 +173,10 @@ public class Level {
 					}
 					
 					usableBlocks = findEdgeBlocks(nonPathBlocks);
+					System.out.println(usableBlocks.size());
 					System.out.println("generated");
+					
+					System.out.println(allPaths.size());
 				} else {
 					usableBlocks = null;
 				}
@@ -217,11 +220,11 @@ public class Level {
 				
 				for (Block surroundingBlock : surroundingBlocks) {
 					if (surroundingBlock != null) {
-						ArrayList<Vector2> path = allPaths.get(new Block[] {block, surroundingBlock});
+						ArrayList<Vector2> path = allPaths.get(surroundingBlock);
 						
-						if (path != null && vectorListContainsAny(path, lastDestroyedBlocks)) {
+						if ((path != null && vectorListContainsAny(path, lastDestroyedBlocks)) || !allPaths.containsKey(surroundingBlock)) {
 							path = findPath(surroundingBlock.x, surroundingBlock.y, levelConfig.endX, levelConfig.endY, otherBlocks);
-							allPaths.put(new Block[] {block, surroundingBlock}, path);
+							allPaths.put(surroundingBlock, path);
 						}
 						
 						if(path == null) {
