@@ -2,6 +2,7 @@ package app.ajay.ld42;
 
 import java.awt.print.Printable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
@@ -27,6 +28,11 @@ public class Level {
 	ArrayList<Block> usableBlocks = new ArrayList<Block>();
 	Thread usableBlocksThread = null;
 	boolean turnQueued = false;
+	
+	//the block that was last destroyed, used to know if a calculation needs to be redone
+	HashMap<Block[], ArrayList<Vector2>> allPaths = new HashMap<Block[], ArrayList<Vector2>>();
+	
+	ArrayList<Vector2> lastDestroyedBlocks = new ArrayList<Vector2>();
 	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
@@ -139,6 +145,8 @@ public class Level {
 						
 						removedBlock.destroy(this, main, direction);
 						
+						lastDestroyedBlocks.add(new Vector2(removedBlock.x, removedBlock.y));
+						
 						usableBlocks.remove(removedBlock);
 					}
 				}
@@ -209,13 +217,17 @@ public class Level {
 				
 				for (Block surroundingBlock : surroundingBlocks) {
 					if (surroundingBlock != null) {
-						ArrayList<Vector2> path = findPath(surroundingBlock.x, surroundingBlock.y, levelConfig.endX, levelConfig.endY, otherBlocks);
+						ArrayList<Vector2> path = allPaths.get(new Block[] {block, surroundingBlock});
+						
+						if (path != null && vectorListContainsAny(path, lastDestroyedBlocks)) {
+							path = findPath(surroundingBlock.x, surroundingBlock.y, levelConfig.endX, levelConfig.endY, otherBlocks);
+							allPaths.put(new Block[] {block, surroundingBlock}, path);
+						}
 						
 						if(path == null) {
 							edgeBlock = false;
 							break;
 						}
-						
 					}
 				}
 				
@@ -349,7 +361,18 @@ public class Level {
 			if(vector.epsilonEquals(position)) {
 				return true;
 			}
-//			System.out.println(vector.toString() + " " + position.toString());
+		}
+		
+		return false;
+	}
+	
+	public static boolean vectorListContainsAny(ArrayList<Vector2> list1, ArrayList<Vector2> list2) {
+		for(Vector2 vector1 : list1) {
+			for(Vector2 vector2 : list2) {
+				if(vector1.epsilonEquals(vector2)) {
+					return true;
+				}
+			}
 		}
 		
 		return false;

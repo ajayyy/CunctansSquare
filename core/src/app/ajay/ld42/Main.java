@@ -80,7 +80,13 @@ public class Main extends ApplicationAdapter {
     public void resume() {
         postProcessor.rebind();
     }
-	
+	 
+	public void nextLevel() {
+		int currentLevelIndex = levels.indexOf(level.levelConfig);
+		
+		level = new Level(this, levels.get(currentLevelIndex + 1));
+	}
+	 
 	public void loadLevels() {
 		LevelConfiguration levelConfig = new LevelConfiguration();
 		
@@ -96,6 +102,52 @@ public class Main extends ApplicationAdapter {
 		levelConfig.blocks[1] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 		levelConfig.blocks[0] = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1};
 		
+		levelConfig.enemies = new Vector2[10];
+		levelConfig.enemies[0] = new Vector2(4, 3);
+		levelConfig.enemies[1] = new Vector2(7, 4);
+		levelConfig.enemies[2] = new Vector2(1, 6);
+		levelConfig.enemies[3] = new Vector2(5, 0);
+		levelConfig.enemies[4] = new Vector2(16, 3);
+		levelConfig.enemies[5] = new Vector2(13, 1);
+		levelConfig.enemies[6] = new Vector2(19, 8);
+		levelConfig.enemies[7] = new Vector2(12, 5);
+		levelConfig.enemies[8] = new Vector2(11, 6);
+		levelConfig.enemies[9] = new Vector2(15, 8);
+		
+		levelConfig.playerX = 0;
+		levelConfig.playerY = 9;
+		levelConfig.endX = 19;
+		levelConfig.endY = 0;
+		
+		levelConfig.blockSize = 32;
+		
+//		levels.add(levelConfig);
+		
+		//level 2
+		levelConfig = new LevelConfiguration();
+		
+		levelConfig.blocks = new int[20][20];                           
+		levelConfig.blocks[19] = new int[] {-1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[18] = new int[] {-1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0};
+		levelConfig.blocks[17] = new int[] {-1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0};
+		levelConfig.blocks[16] = new int[] {-1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0};
+		levelConfig.blocks[15] = new int[] {-1,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0, -1, -1, -1,  0,  0};
+		levelConfig.blocks[14] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0, -1, -1, -1,  0,  0};
+		levelConfig.blocks[13] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[12] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[11] = new int[] { 0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[10] = new int[] {-1,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[9] = new int[]  {-1,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0, -1, -1, -1,  0,  0};
+		levelConfig.blocks[8] = new int[]  {-1,  0,  0, -1, -1,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0, -1, -1, -1,  0,  0};
+		levelConfig.blocks[7] = new int[]  {-1,  0,  0, -1, -1,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0, -1, -1, -1,  0,  0};
+		levelConfig.blocks[6] = new int[]  {-1,  0,  0, -1, -1,  0,  0,  0, -1, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[5] = new int[]  {-1,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[4] = new int[]  {-1,  0,  0, -1, -1,  0,  0,  0,  0,  0,  1,  0,  0,  0,  0,  0,  0,  0,  0,  0};
+		levelConfig.blocks[3] = new int[]  {-1,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0};
+		levelConfig.blocks[2] = new int[]  {-1,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0};
+		levelConfig.blocks[1] = new int[]  { 0,  0,  0, -1, -1,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0};
+		levelConfig.blocks[0] = new int[]  { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, -1, -1, -1,  0,  0,  0};
+		                                                                                                             
 		levelConfig.enemies = new Vector2[10];
 		levelConfig.enemies[0] = new Vector2(4, 3);
 		levelConfig.enemies[1] = new Vector2(7, 4);
