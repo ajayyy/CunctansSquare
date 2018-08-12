@@ -28,6 +28,23 @@ public class ButtonBlock extends Block{
 					level.blocks.add(newBlock);
 				}
 			}
+			
+			Block newBlock = new OpenBlock(x, y);
+			
+			int direction = 0;
+			if (level.player.turnQueueDirection == 0) {
+				direction = 1;
+			} else if (level.player.turnQueueDirection == 1) {
+				direction = 0;
+			} else if (level.player.turnQueueDirection == 2) {
+				direction = 3;
+			} else if (level.player.turnQueueDirection == 3) {
+				direction = 2;
+			}
+			
+			destroy(level, main, direction);
+			
+			level.blocks.add(0, newBlock);
 		}
 	}
 }
