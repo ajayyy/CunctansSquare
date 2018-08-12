@@ -391,9 +391,12 @@ public class Level {
 	
 	public Block getBlock(float x, float y, ArrayList<Block> blocks) {
 		blocks = new ArrayList<Block>(blocks);
-		for (int i = 0; i < blocks.size(); i++) {
-			if (blocks.get(i).x == x && blocks.get(i).y == y) {
-				return blocks.get(i);
+		for (Block block : blocks) {
+			if (block == null) {
+				continue;
+			}
+			if (block.x == x && block.y == y) {
+				return block;
 			}
 		}
 		
