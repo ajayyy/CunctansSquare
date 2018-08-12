@@ -23,6 +23,10 @@ public class Block {
 		
 	}
 	
+	public void playTurn(Level level, Main main) {
+		
+	}
+	
 	public void render(Level level, Main main) {
 		main.shapeRenderer.begin(ShapeType.Filled);
 		

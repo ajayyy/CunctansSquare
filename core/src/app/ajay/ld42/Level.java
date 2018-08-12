@@ -22,6 +22,8 @@ public class Level {
 	
 	int turnNumber = 0;
 	
+	ArrayList<Block> enemies = new ArrayList<Block>();
+	
 	ArrayList<Block> usableBlocks = new ArrayList<Block>();
 	Thread usableBlocksThread = null;
 	boolean turnQueued = false;
@@ -42,6 +44,10 @@ public class Level {
 			}
 		}
 		
+		for (int i = 0; i < levelConfig.enemies.length; i++) {
+			enemies.add(new EnemyBlock((int) levelConfig.enemies[i].x, (int) levelConfig.enemies[i].y));
+		}
+		
 		player = new Player(levelConfig.playerX, levelConfig.playerY);
 		
 		rand = new Random();
@@ -54,6 +60,10 @@ public class Level {
 			block.update(this, main);
 		}
 		
+		for (Block block : new ArrayList<Block>(enemies)) {
+			block.update(this, main);
+		}
+		
 		player.update(this, main);
 	}
 	
@@ -62,11 +72,26 @@ public class Level {
 			block.render(this, main);
 		}
 		
+		for (Block block : new ArrayList<Block>(enemies)) {
+			block.render(this, main);
+		}
+		
 		player.render(this, main);
 	}
 	
 	//called by the player when a turn has started, the non player events are triggered from here
 	public void playTurn() {
+		
+		//call all next turn methods
+		for (Block block : new ArrayList<Block>(blocks)) {
+			block.playTurn(this, main);
+		}
+		
+		for (Block block : new ArrayList<Block>(enemies)) {
+			block.playTurn(this, main);
+		}
+		
+		player.playTurn(this, main);
 		
 		//remove random block
 		if(turnNumber % levelConfig.destroyInterval == 0) {
