@@ -30,6 +30,8 @@ public class LevelConfiguration {
 	//amount of blocks to destroy each time
 	int destroyAmount = 1;
 	
+	String hint = "";
+	
 	public void createEnemies() {
 		ArrayList<Vector2> enemies = new ArrayList<Vector2>();
 		for(int y = 0; y < blocks.length; y++) {

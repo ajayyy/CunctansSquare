@@ -1,16 +1,13 @@
 package app.ajay.ld42;
 
-import java.awt.print.Printable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Array;
-import com.bitfire.postprocessing.PostProcessor;
 
 
 public class Level {
@@ -23,6 +20,8 @@ public class Level {
 	LevelConfiguration levelConfig;
 	
 	Random rand;
+	
+	BitmapFont font;
 	
 	int turnNumber = 0;
 	
@@ -48,6 +47,8 @@ public class Level {
 	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
+		
+		font = new BitmapFont(Gdx.files.internal("arial.fnt"), false);
 		
 		this.levelConfig = levelConfig;
 		
@@ -126,6 +127,12 @@ public class Level {
 		}
 		
 		player.render(this, main);
+		
+		main.batch.begin();
+		font.setColor(Color.WHITE);
+		font.getData().setScale(0.25f);
+		font.draw(main.batch, levelConfig.hint, 0, Gdx.graphics.getHeight() - 5);
+		main.batch.end();
 	}
 	
 	public void restart() {

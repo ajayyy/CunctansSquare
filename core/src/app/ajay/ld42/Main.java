@@ -326,9 +326,11 @@ public class Main extends ApplicationAdapter {
 		levelConfig.endX = 9;
 		levelConfig.endY = 10;
 		
+		levelConfig.hint = "Touching the yellow block will open the brown door";
+		
 		levelConfig.blockSize = 32;
 		
-//		levels.add(levelConfig);
+		levels.add(levelConfig);
 		
 		//level 7
 		levelConfig = new LevelConfiguration();
