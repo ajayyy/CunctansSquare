@@ -1,5 +1,7 @@
 package app.ajay.ld42;
 
+import java.util.ArrayList;
+
 import javax.activation.UnsupportedDataTypeException;
 
 import com.badlogic.gdx.ApplicationAdapter;
@@ -18,13 +20,14 @@ public class Main extends ApplicationAdapter {
 	
 	OrthographicCamera cam;
 	
+	ArrayList<LevelConfiguration> levels = new ArrayList<LevelConfiguration>();
+	
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		
 		//contains all data for the level being created
-		//TODO: make a list of these and keep loading them as new levels need to be loaded
 		LevelConfiguration levelConfig = new LevelConfiguration();
 		
 		levelConfig.blocks = new int[10][20];
@@ -95,5 +98,6 @@ public class Main extends ApplicationAdapter {
 	@Override
 	public void dispose() {
 		batch.dispose();
+		shapeRenderer.dispose();
 	}
 }

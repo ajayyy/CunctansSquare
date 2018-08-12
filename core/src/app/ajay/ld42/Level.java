@@ -79,6 +79,10 @@ public class Level {
 		player.render(this, main);
 	}
 	
+	public void restart() {
+		main.level = new Level(main, levelConfig);
+	}
+	
 	//called by the player when a turn has started, the non player events are triggered from here
 	public void playTurn() {
 		
@@ -100,6 +104,13 @@ public class Level {
 				//remove current postition from usable blocks
 				if (usableBlocks.contains(getBlock(player.x, player.y))) {
 					usableBlocks.remove(getBlock(player.x, player.y));
+				}
+				
+				//remove enemy postitions from usable blocks
+				for (Block enemy : enemies) {
+					if (usableBlocks.contains(getBlock(enemy.x, enemy.y))) {
+						usableBlocks.remove(getBlock(enemy.x, enemy.y));
+					}
 				}
 				
 				if (usableBlocks.size() > 0) {
@@ -215,13 +226,13 @@ public class Level {
 	
 	public ArrayList<Vector2> findPath(int startX, int startY, int endX, int endY, ArrayList<Block> blocks) {
 		//maximum amount of blocks before giving up and trying another path entirely
-		int maximumPathLength = 100;
+		int maximumPathLength = 200;
 		
 		//tries left when removing the block for not being an open block
 		int removeTriesLeft = 250;
 		
 		//tries left when clearing the whole path
-		int clearingTriesLeft = 100;
+		int clearingTriesLeft = 250;
 		
 		ArrayList<Vector2> path = new ArrayList<Vector2>();
 		path.add(new Vector2(startX, startY));

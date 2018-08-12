@@ -26,6 +26,10 @@ public class Player extends Block{
 			
 			playTurn(level, main, turnQueueDirection);
 		}
+		
+		if (level.getEnemy(x, y) != null && !animating && level.readyForTurn()) {
+			level.restart();
+		}
 	}
 	
 	public void checkForMovement(Level level, Main main) {
