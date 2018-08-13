@@ -29,7 +29,6 @@ public class Level {
 	ArrayList<Block> enemies = new ArrayList<Block>();
 	
 	ArrayList<Block> usableBlocks = new ArrayList<Block>();
-	Thread usableBlocksThread = null;
 	boolean turnQueued = false;
 	
 	//the block that was last destroyed, used to know if a calculation needs to be redone
@@ -39,12 +38,12 @@ public class Level {
 	
 	boolean endAnimation = false;
 	int endAnimationFrames = 0;
-	int endAnimationLength = 15;
+	int endAnimationLength = 3;
 	boolean nextLevel = false;
 	
 	boolean startAnimation = false;
 	int startAnimationFrames = 0;
-	int startAnimationLength = 15;
+	int startAnimationLength = 3;
 	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
@@ -224,36 +223,30 @@ public class Level {
 	
 	//loads data for the next turn in another thread
 	public void loadTurn() {
-		usableBlocksThread = new Thread() {
-			public void run() {
-				ArrayList<Vector2> path = findPath(player.x, player.y, levelConfig.endX, levelConfig.endY, blocks);
-				
-				if (path != null) {
-					ArrayList<Block> nonPathBlocks = new ArrayList<Block>();
-					for(Block block : blocks) {
-						if(!vectorListContains(path, new Vector2(block.x, block.y))) {
-							nonPathBlocks.add(block);
-						}
-					}
-					
-					usableBlocks = findEdgeBlocks(nonPathBlocks);
-					System.out.println(usableBlocks.size());
-					
-					System.out.println(allPaths.size());
-				} else {
-					usableBlocks = null;
-					System.out.println("no usable blocks");
-				}
-				
-				usableBlocksThread = null;
-			}
-		};
+		ArrayList<Vector2> path = findPath(player.x, player.y, levelConfig.endX, levelConfig.endY, blocks);
 		
-		usableBlocksThread.start();
+		if (path != null) {
+			ArrayList<Block> nonPathBlocks = new ArrayList<Block>();
+			for(Block block : blocks) {
+				if(!vectorListContains(path, new Vector2(block.x, block.y))) {
+					nonPathBlocks.add(block);
+				}
+			}
+			
+			usableBlocks = findEdgeBlocks(nonPathBlocks);
+			System.out.println(usableBlocks.size());
+			
+			System.out.println(allPaths.size());
+		} else {
+			usableBlocks = null;
+			System.out.println("no usable blocks");
+		}
+		
+		usableBlocks = null;
 	}
 	
 	public boolean readyForTurn() {
-		return usableBlocksThread == null;
+		return usableBlocks == null;
 	}
 	
 	public ArrayList<Block> findEdgeBlocks(ArrayList<Block> blocks){
