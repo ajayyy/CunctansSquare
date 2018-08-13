@@ -13,3 +13,7 @@ For HTML, you must install the GWT plugin in eclipse.
 # Download or play online
 
 You can play it on https://theajayyy.itch.io/cunctans-square
+
+# License
+
+This project is under the MIT License
