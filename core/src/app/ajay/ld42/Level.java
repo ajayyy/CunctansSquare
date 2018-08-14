@@ -38,12 +38,12 @@ public class Level {
 	
 	boolean endAnimation = false;
 	int endAnimationFrames = 0;
-	int endAnimationLength = 3;
+	int endAnimationLength = 15;
 	boolean nextLevel = false;
 	
 	boolean startAnimation = false;
 	int startAnimationFrames = 0;
-	int startAnimationLength = 3;
+	int startAnimationLength = 15;
 	
 	public Level(Main main, LevelConfiguration levelConfig) {
 		this.main = main;
@@ -75,19 +75,10 @@ public class Level {
 	}
 	
 	public void update() {
-		for (Block block : new ArrayList<Block>(blocks)) {
-			block.update(this, main);
-		}
-		
-		for (Block block : new ArrayList<Block>(enemies)) {
-			block.update(this, main);
-		}
-		
-		player.update(this, main);
 		
 		if (endAnimation) {
 			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() + 2);
-			main.bloom.setBlurPasses(main.bloom.getBlurPasses() + 20);
+			main.bloom.setBlurPasses(main.bloom.getBlurPasses() + 10);
 			endAnimationFrames++;
 			
 			if (endAnimationFrames > endAnimationLength) {
@@ -103,19 +94,33 @@ public class Level {
 					main.level.startAnimation = true;
 				}
 			}
+			
+			return;
 		}
 		
 		if (startAnimation) {
 			main.bloom.setBloomIntesity(main.bloom.getBloomIntensity() - 2);
-			main.bloom.setBlurPasses(main.bloom.getBlurPasses() - 20);
+			main.bloom.setBlurPasses(main.bloom.getBlurPasses() - 10);
 			
 			startAnimationFrames++;
 			
 			if (startAnimationFrames > startAnimationLength) {
 				startAnimation = false;
 			}
+			
+			return;
 		}
 		
+		for (Block block : new ArrayList<Block>(blocks)) {
+			block.update(this, main);
+		}
+		
+		for (Block block : new ArrayList<Block>(enemies)) {
+			block.update(this, main);
+		}
+		
+		player.update(this, main);
+				
 		if (Gdx.input.isKeyJustPressed(Keys.R) && !endAnimation) {
 			restart();
 		}
@@ -150,7 +155,7 @@ public class Level {
 	public void playTurn() {
 		
 		//check if the level has been beaten
-		if (getBlock(player.x, player.y).type == 1) {
+		if (getBlock(player.x, player.y).type == 1 || endAnimation) {
 			main.nextLevel();
 			return;
 		}
