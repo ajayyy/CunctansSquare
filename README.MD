@@ -10,9 +10,11 @@ Use eclipse and load it as a gradle project.
 
 For HTML, you must install the GWT plugin in eclipse.
 
-# Download or play online
+# Download
 
-You can play it on https://theajayyy.itch.io/cunctans-square
+You can play it by downloading from https://github.com/ajayyy/CunctansSquare/releases
+
+You must have Java installed
 
 # License
 
