@@ -1,4 +1,4 @@
-# Dependancies
+# Dependencies
 
 Clone https://github.com/manuelbua/libgdx-contribs/ and make sure to include those files as dependencies for the post processing effects.
 
